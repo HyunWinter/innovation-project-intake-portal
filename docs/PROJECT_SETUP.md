@@ -3,9 +3,9 @@
 ## Tickets
 
 ### 1. Scaffold project
-- [ ] Create Django project and apps (accounts, proposals)
-- [ ] Create workflow package
-- [ ] Add requirements.txt
+- [x] Create Django project and apps (accounts, proposals)
+- [x] Create workflow package
+- [x] Add requirements.txt
 
 ### 2. Dockerize
 - [ ] Create Dockerfile
