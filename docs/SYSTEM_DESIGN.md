@@ -22,8 +22,8 @@ Comparison between dev and prod environments for scaling purposes. The demo envi
 | :--- | :--- | :--- |
 | Compute | AWS EC2 | AWS ECS Fargate |
 | Database | Postgres | AWS RDS Postgres |
-| Redis | Redis | AWS ElastiCache micro |
-| Static | nginx + Caddy | AWS CloudFront + S3 |
+| Redis | N/A | AWS ElastiCache micro |
+| Static | Caddy | AWS CloudFront + S3 |
 | TLS | Caddy + Let's Encrypt | AWS Cloudfront |
 | Backup | S3 (pg_dump) | AWS RDS Snapshot |
 | Expected cost | ~$15 | ~$100 |
