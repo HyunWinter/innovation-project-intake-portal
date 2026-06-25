@@ -68,6 +68,10 @@ Requirements specifically state that role checks should be enforced in the serve
 | | combine_existing |
 | | enhance_search |
 | | reject |
+| PresentationStatus | not_requested |
+| | requested |
+| | scheduled |
+| | completed |
 | FundingStatus | not_required |
 | | pending |
 | | approved |
@@ -84,7 +88,7 @@ Requirements specifically state that role checks should be enforced in the serve
 
 #### 2 · Basic Info
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | contact_name | string | required |
 | contact_email | string | required |
@@ -103,7 +107,7 @@ Unlike other Enum fields in this project, I can see tech categories might change
 
 #### 3 · Scope
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | title | string | required |
 | description | text | required |
@@ -115,7 +119,7 @@ Unlike other Enum fields in this project, I can see tech categories might change
 
 #### 4 · Resources
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | funding_required | boolean | true = category B |
 | personnel | text | |
@@ -125,7 +129,7 @@ Unlike other Enum fields in this project, I can see tech categories might change
 
 #### Others
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | presentation_date | datetime | nullable, set on schedule |
 | presentation_requirements | text | nullable, set on request_presentation |
@@ -142,7 +146,7 @@ Model for incomplete submissions for users to save/auto-save and resume later. B
 
 This model is also designed to accumulate data over time, but kept as a separate table to avoid bloating the main Request table. As our application scale, we can purge it periodically every ~30 days.
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | id | uuid | primary key |
 | author | User FK | |
@@ -154,7 +158,7 @@ This model is also designed to accumulate data over time, but kept as a separate
 
 This model is for append only for the `typed audit-trail entity` purpose. One row written in the same transaction as every state change.
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | id | uuid | primary key |
 | request | Request FK | |
@@ -162,14 +166,14 @@ This model is for append only for the `typed audit-trail entity` purpose. One ro
 | event_type | string | transition or action name |
 | from_status | Status | nullable |
 | to_status | Status | nullable |
-| payload | jsonb | structured, typed per event_type |
+| payload | jsonb | structured, typed per event_type (presentation_status, funding_status, etc...) |
 | created_at | datetime | |
 
 Status Enum is located in Submission Form - Workflow section.
 
 ### Comment (Not Mandatory)
 
-| Field | Type | Notes |
+| Field | Type | Description |
 |---|---|---|
 | id | uuid | primary key |
 | request | Request FK | |
