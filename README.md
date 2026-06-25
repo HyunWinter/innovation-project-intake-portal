@@ -14,6 +14,7 @@ A single auditable system covering the full lifecycle of bottom-up engineering p
 
 ## Documentation
 
+- [Project Setup](docs/PROJECT_SETUP.md) - project scaffolding, dockerization, settings, and env
 - [System Design](docs/SYSTEM_DESIGN.md) - architecture, expected traffic, dev vs prod
 - [Data Handling](docs/DATA_HANDLING.md) - data model and schema
 - [State Development](docs/STATE_DEVELOPMENT.md) - roles, API endpoints, state machine

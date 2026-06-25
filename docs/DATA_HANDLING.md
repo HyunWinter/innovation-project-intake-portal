@@ -2,6 +2,27 @@
 
 ## Tickets
 
+### 1. Custom User
+- [ ] Create custom User model with role
+- [ ] Set AUTH_USER_MODEL before the first migrate
+
+### 2. Enums
+- [ ] Define Status, Category, CommitteeDecision, PresentationStatus, FundingStatus, TechCategory, Role
+
+### 3. Request model
+- [ ] Create Request model with all sections and workflow columns
+- [ ] Add soft delete
+
+### 4. Other models
+- [ ] Create AuditEvent model
+- [ ] Create Comment model
+- [ ] Create DraftRequest model
+
+### 5. Migration
+- [ ] Generate the initial migration
+
+### 6. Seed script
+- [ ] Create a seed command with demo users and the five required records
 
 ## Requirements
 

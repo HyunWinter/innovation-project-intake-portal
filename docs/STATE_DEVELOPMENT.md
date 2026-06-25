@@ -2,6 +2,30 @@
 
 ## Tickets
 
+### 1. Transition registry
+- [ ] Create workflow states and the transition table
+
+### 2. Transition service
+- [ ] Create the apply_transition service that writes an audit row in one transaction
+
+### 3. Engine
+- [ ] Create available_actions and workflow_steps
+
+### 4. Serializers and validators
+- [ ] Create the request serializer with validation
+- [ ] Add decision payload validation
+
+### 5. Read endpoints
+- [ ] Create GET /requests with filters
+- [ ] Create GET /requests/:id with audit trail
+
+### 6. Transition endpoints
+- [ ] Create transition endpoints (committee-decision, presentation, presentation-outcome, funding-decision, comments, execution, resume, resubmit)
+- [ ] Enforce role permissions
+
+### 7. Error contract
+- [ ] Implement error responses (400, 403, 404, 409)
+
 ## Permissions
 
 | Personas | Can Do |
