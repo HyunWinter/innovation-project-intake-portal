@@ -4,11 +4,13 @@ A single auditable system covering the full lifecycle of bottom-up engineering p
 
 ## Tech Stack
 
-- Django, Django REST Framework
 - Vue.js, TailwindCSS
+- Vite (dev frontend)
+- Caddy (demo frontend + proxy + TLS)
+- Django, Django REST Framework
 - PostgreSQL
 - Docker, docker compose
-- AWS EC2 (demo deployment)
+- AWS EC2 (demo hosting)
 
 ## Documentation
 
