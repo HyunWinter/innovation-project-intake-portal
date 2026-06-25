@@ -14,7 +14,14 @@
 | **Management** | Final funding go/no-go |
 | **Anyone** | Read-only dashboard |
 
-As I wrote in [Data Handling](docs/DATA_HANDLING.md), access from a wrong role should result in a 403 Forbidden error.
+As I wrote in [Data Handling](DATA_HANDLING.md), access from a wrong role should result in a 403 Forbidden error.
+
+## Reads
+
+| Method | Path | Role | Purpose |
+|---|---|---|---|
+| GET | /requests | any role | List with filters (status, category, funding, free-text), paginated |
+| GET | /requests/:id | any role | Detail with audit trail and comments |
 
 ## Transitions - Committee Decision Category A (No Funding)
 
@@ -28,7 +35,7 @@ As I wrote in [Data Handling](docs/DATA_HANDLING.md), access from a wrong role s
 | POST | .../committee-decision | `pending` | `committee` | `reject` | `decision_reasoning` | `rejected` (terminal) |
 | POST | .../resume | `on_hold` | `committee` | `resume` | none | `pending` |
 
-### Transitions — Committee Decision Category B (Funding Required)
+## Transitions — Committee Decision Category B (Funding Required)
 
 | Method | Path | From | Role | Decision / Action | Required fields | To |
 |---|---|---|---|---|---|---|
@@ -43,7 +50,7 @@ As I wrote in [Data Handling](docs/DATA_HANDLING.md), access from a wrong role s
 | POST | .../funding-decision | `under_review`, `presentation_status` `completed`, `funding_status` `pending` | `management` | `go` | `decision_reasoning` | `approved`, `funding_status` `approved` |
 | POST | .../funding-decision | `under_review`, `presentation_status` `completed`, `funding_status` `pending` | `management` | `no_go` | `decision_reasoning` | `rejected` (terminal), `funding_status` `denied` |
 
-### Transitions — Both A and B
+## Transitions — Both A and B
 
 | Method | Path | From | Role | Decision / Action | Required fields | To |
 |---|---|---|---|---|---|---|

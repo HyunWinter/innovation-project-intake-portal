@@ -152,7 +152,7 @@ This model is also designed to accumulate data over time, but kept as a separate
 | author | User FK | |
 | data | jsonb | should be validated on submit |
 | created_at | datetime | |
-| updated_at | datetime | nullable, soft delete |
+| updated_at | datetime | nullable |
 
 ### AuditEvent (Mandatory)
 
