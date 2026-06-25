@@ -4,14 +4,6 @@
 
 This project is an internal Innovation Project Intake Portal for a single company. This document covers the system design, tech stacks, expected traffic and storage, and a comparison between development and production environments.
 
-## Tech Stacks
-
-- Django (Python)
-- Docker
-- Vue.js
-- TailwindCSS
-- AWS EC2 (t3.small)
-
 ## Expected Prod Traffic / Storage
 
 This is all hypothetical for demo purposes.
