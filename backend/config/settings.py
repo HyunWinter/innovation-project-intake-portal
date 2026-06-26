@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     "proposals",
 ]
 
+# Custom user model (email-based auth). Must be set before the first migrate.
+AUTH_USER_MODEL = "accounts.User"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",

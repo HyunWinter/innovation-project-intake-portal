@@ -3,8 +3,8 @@
 ## Tickets
 
 ### 1. Custom User
-- [ ] Create custom User model with role
-- [ ] Set AUTH_USER_MODEL before the first migrate
+- [x] Create custom User model with role
+- [x] Set AUTH_USER_MODEL to the custom User model
 
 ### 2. Enums
 - [ ] Define Status, Category, CommitteeDecision, PresentationStatus, FundingStatus, TechCategory, Role
