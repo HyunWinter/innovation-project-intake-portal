@@ -8,14 +8,14 @@
 - [x] Add requirements.txt
 
 ### 2. Dockerize
-- [ ] Create Dockerfile
-- [ ] Create docker-compose with db and backend services
-- [ ] Run backend in container against db
+- [x] Create Dockerfile
+- [x] Create docker-compose with db and backend services
+- [x] Run backend in container against db
 
 ### 3. Settings and env
-- [ ] Configure settings from env
-- [ ] Set up DRF, JWT, and CORS
-- [ ] Add .env.example and .gitignore
+- [x] Configure settings from env
+- [x] Set up DRF, JWT, and CORS
+- [x] Add .env.example and .gitignore
 
 ## Services
 
