@@ -41,5 +41,6 @@ DEBUG
 ```bash
 docker compose up --build
 docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py createsuperuser
 docker compose exec backend python manage.py seed_demo
 ```
