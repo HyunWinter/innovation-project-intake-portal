@@ -11,6 +11,7 @@ The state machine that handles all transition rules.
 | | From state and to state |
 | | Data required |
 | | What it changes |
+| `exceptions.py` | Maps each errors to an HTTP status |
 
 ## Flow
 
