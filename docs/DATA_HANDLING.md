@@ -7,22 +7,22 @@
 - [x] Set AUTH_USER_MODEL to the custom User model
 
 ### 2. Enums
-- [ ] Define Status, Category, CommitteeDecision, PresentationStatus, FundingStatus, TechCategory, Role
+- [x] Define Status, Category, CommitteeDecision, PresentationStatus, FundingStatus, TechCategory, Role
 
 ### 3. Request model
-- [ ] Create Request model with all sections and workflow columns
-- [ ] Add soft delete
+- [x] Create Request model with all sections and workflow columns
+- [x] Add soft delete
 
 ### 4. Other models
-- [ ] Create AuditEvent model
-- [ ] Create Comment model
-- [ ] Create DraftRequest model
+- [x] Create AuditEvent model
+- [x] Create Comment model
+- [x] Create DraftRequest model
 
 ### 5. Migration
-- [ ] Generate the initial migration
+- [x] Generate the initial migration
 
 ### 6. Seed script
-- [ ] Create a seed command with demo users and the five required records
+- [x] Create a seed command with demo users and the five required records
 
 ## Requirements
 
