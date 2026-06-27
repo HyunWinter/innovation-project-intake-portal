@@ -18,7 +18,9 @@ from django.contrib.auth.models import (
 
 class Role(models.TextChoices):
     """The three portal roles
-    User without a role is considered Anyone for read-only access.
+    An User without a role is considered 'Anyone' with read-only access.
+    Since this is an intake portal, unauthenticated users are not allowed to
+    view or make changes to requests.
     """
 
     SUBMITTER = "submitter", "Submitter"
