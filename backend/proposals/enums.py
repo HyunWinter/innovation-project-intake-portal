@@ -18,13 +18,16 @@ class Category(models.TextChoices):
 class Status(models.TextChoices):
     """Request Statuses"""
 
+    # Non-terminal states
     PENDING = "pending", "Pending"
     UNDER_REVIEW = "under_review", "Under review"
     APPROVED = "approved", "Approved"
     IN_PROGRESS = "in_progress", "In progress"
+    ON_HOLD = "on_hold", "On hold"
+
+    # Terminal states
     COMPLETED = "completed", "Completed"
     REJECTED = "rejected", "Rejected"
-    ON_HOLD = "on_hold", "On hold"
     MERGED = "merged", "Merged"
 
 

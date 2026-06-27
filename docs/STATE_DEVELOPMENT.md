@@ -3,7 +3,7 @@
 ## Tickets
 
 ### 1. Transition registry
-- [ ] Create workflow states and the transition table
+- [x] Create workflow states and the transition table
 
 ### 2. Transition service
 - [ ] Create the apply_transition service that writes an audit row in one transaction
