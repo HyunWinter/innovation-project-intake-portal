@@ -6,11 +6,15 @@ role/state errors -> 4xx exception
 
 from django.db import transaction
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from accounts.models import Role
-from workflow.exceptions import IllegalTransition, RoleNotAllowed
+from workflow.exceptions import IllegalTransition, RoleNotAllowed, UnknownAction
+from workflow.service import apply_transition
+from workflow.transitions import get_transition
 
 from .enums import Status
 from .models import AuditEvent, Request
@@ -19,6 +23,7 @@ from .serializers import (
     RequestDetailSerializer,
     RequestListSerializer,
 )
+from .validators import validate_transition_payload
 
 
 class RequestListCreateView(generics.ListCreateAPIView):
@@ -112,4 +117,28 @@ class RequestDetailView(generics.RetrieveUpdateAPIView):
             )
 
         out = RequestDetailSerializer(obj, context=self.get_serializer_context())
+        return Response(out.data)
+
+
+class TransitionView(APIView):
+    """POST /requests/:id/<endpoint>
+    Parameter: request (action, payload)
+    """
+
+    def post(self, request, pk, endpoint):
+        obj = get_object_or_404(Request, pk=pk)
+
+        action = request.data.get("action")
+        if not action:
+            return Response({"detail": "action is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        transition = get_transition(action)
+        if transition is None or transition.endpoint != endpoint:
+            raise UnknownAction(action)
+
+        payload = {k: v for k, v in request.data.items() if k != "action"}
+        validate_transition_payload(action, payload)
+        obj = apply_transition(obj, action, request.user, payload)
+
+        out = RequestDetailSerializer(obj, context={"request": request})
         return Response(out.data)
