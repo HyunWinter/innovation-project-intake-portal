@@ -12,16 +12,16 @@
 - [x] Create available_actions and workflow_progress
 
 ### 4. Serializers and validators
-- [ ] Create the request serializer with validation
-- [ ] Add decision payload validation
+- [x] Create the request serializer with validation
+- [x] Add decision payload validation
 
 ### 5. Read endpoints
-- [ ] Create GET /requests with filters
-- [ ] Create GET /requests/:id with audit trail
+- [x] Create GET /requests with filters
+- [x] Create GET /requests/:id with audit trail
 
 ### 6. Transition endpoints
-- [ ] Create transition endpoints (committee-decision, presentation, presentation-outcome, funding-decision, comments, execution, resume, resubmit)
-- [ ] Enforce role permissions
+- [x] Create transition endpoints (committee-decision, presentation, presentation-outcome, funding-decision, comments, execution, resume, resubmit)
+- [x] Enforce role permissions
 
 ### 7. Error contract
 - [ ] Implement error responses (400, 403, 404, 409)
