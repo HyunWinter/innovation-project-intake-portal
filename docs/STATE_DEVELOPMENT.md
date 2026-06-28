@@ -6,10 +6,10 @@
 - [x] Create workflow states and the transition table
 
 ### 2. Transition service
-- [ ] Create the apply_transition service that writes an audit row in one transaction
+- [x] Create the apply_transition service that writes an audit row in one transaction
 
 ### 3. Engine
-- [ ] Create available_actions and workflow_steps
+- [x] Create available_actions and workflow_progress
 
 ### 4. Serializers and validators
 - [ ] Create the request serializer with validation
