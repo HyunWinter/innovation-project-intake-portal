@@ -8,7 +8,7 @@
 
 ### 2. Integration tests
 - [ ] API endpoint and error contract tests
-- [ ] Authentication tests
+- [x] Authentication tests
 
 ### 3. Frontend tests
 - [ ] Vitest
@@ -23,8 +23,12 @@
 ## Run
 
 ```bash
+cd backend
 docker compose exec backend python manage.py test
 docker compose exec backend python manage.py test proposals.tests.test_state_machine
+docker compose exec backend python manage.py test proposals.tests.test_validators
+docker compose exec backend python manage.py test proposals.tests.test_api
+docker compose exec backend python manage.py test accounts.tests
 ```
 
 ## Unit Tests
@@ -68,15 +72,19 @@ Full stack through `APIClient`.
 | Test | Expected |
 |---|---|
 | List | requires authentication (Anyone) |
-| Filter | returns only the matching category |
 | Create | returns 201 with derived category |
-| Non-submitter create | rejected |
+| Non-submitter create | rejected with 403 |
 | Invalid create | returns 400 |
+| Filter | returns only the matching category |
 | Detail | returns available actions and workflow |
 | Committee decision | approves over HTTP |
 | Comment | saved over HTTP |
-| Resubmit | owner only |
-| Error contract | 400, 403, 404, 409 |
+| Resubmit (owner) | updates the request |
+| Resubmit (non-owner) | rejected with 403 |
+| Illegal transition | returns 409 |
+| Wrong role | returns 403 |
+| Unknown action | returns 404 |
+| Missing field | returns 400 with the field listed |
 
 ### Authentication (`backend/accounts/tests.py`)
 
