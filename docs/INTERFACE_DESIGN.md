@@ -2,9 +2,33 @@
 
 ## Tickets
 
-## Pages
+### 1. Foundation
+- [ ] Router
+- [ ] Auth store (login, JWT role and name, logout)
+- [ ] API store
 
-### Navbar
+### 2. Login and Navbar
+- [ ] Login page
+- [ ] Navbar with current user and logout
+
+### 3. Dashboard
+- [ ] Stat tiles
+- [ ] Filterable paginated table
+- [ ] My requests toggle
+- [ ] Overdue indicator
+- [ ] New Request button
+
+### 4. New Request form
+- [ ] Four sections with inline validation and conditional budget/ROI
+
+### 5. Review screen
+- [ ] Status header
+- [ ] Workflow progress
+- [ ] Role and state gated actions
+- [ ] Decision modal
+- [ ] Comment and audit timeline
+
+## Requirements
 
 ### Login Page
 - Email
