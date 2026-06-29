@@ -7,3 +7,19 @@ repos:
         files: ^backend/.*\.py$
       - id: ruff-format
         files: ^backend/.*\.py$
+
+  # Frontend: oxfmt + oxlint via vite-plus (run from the frontend package).
+  - repo: local
+    hooks:
+      - id: oxfmt
+        name: oxfmt (frontend)
+        entry: pnpm -C frontend exec vp fmt
+        language: system
+        files: ^frontend/.*\.(js|jsx|ts|tsx|vue)$
+        pass_filenames: false
+      - id: oxlint
+        name: oxlint (frontend)
+        entry: pnpm -C frontend exec vp lint
+        language: system
+        files: ^frontend/.*\.(js|jsx|ts|tsx|vue)$
+        pass_filenames: false
