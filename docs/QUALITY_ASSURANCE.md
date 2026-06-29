@@ -3,7 +3,7 @@
 ## Tickets
 
 ### 1. Unit tests
-- [ ] State machine tests
+- [x] State machine tests
 - [ ] Validator tests
 
 ### 2. Integration tests
