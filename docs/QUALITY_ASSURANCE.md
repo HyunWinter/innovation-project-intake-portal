@@ -3,12 +3,12 @@
 ## Tickets
 
 ### 1. Unit tests
-- [x] State machine tests
-- [x] Validator tests
+- [ ] State machine tests
+- [ ] Validator tests
 
 ### 2. Integration tests
-- [x] API endpoint and error contract tests
-- [x] Authentication tests
+- [ ] API endpoint and error contract tests
+- [ ] Authentication tests
 
 ### 3. Frontend tests
 - [ ] Vitest
