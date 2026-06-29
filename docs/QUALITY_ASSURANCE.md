@@ -4,7 +4,7 @@
 
 ### 1. Unit tests
 - [x] State machine tests
-- [ ] Validator tests
+- [x] Validator tests
 
 ### 2. Integration tests
 - [x] API endpoint and error contract tests
@@ -59,13 +59,19 @@ Call the component directly, no HTTP.
 
 | Test | Expected |
 |---|---|
-| end_date vs start_date | end must be after start |
-| Funded budget | must be positive |
-| Funded ROI | required |
+| end_date vs start_date | invalid, end_date error |
+| Funded without budget | invalid, budget error |
+| Funded budget not positive | invalid, budget error |
+| Funded without ROI | invalid, estimated_roi error |
 | Unfunded minimal | valid |
-| Category derivation | A when unfunded, B when funded |
-| Schedule date | must be in the future |
-| Hold date | must be well formed |
+| Category A derivation | category A, funding not required |
+| Category B derivation | category B, funding pending |
+| Schedule past date | rejected |
+| Schedule future date | passes |
+| Schedule missing date | passes |
+| Hold malformed date | rejected |
+| Hold valid date | passes |
+| Action without typed checks | passes |
 
 ## Integration Tests
 
