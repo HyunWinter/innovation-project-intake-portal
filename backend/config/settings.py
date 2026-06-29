@@ -129,6 +129,10 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    # Turns workflow TransitionError subclasses into 400/403/404/409.
+    "EXCEPTION_HANDLER": "proposals.exception_handlers.api_exception_handler",
 }
 
 
