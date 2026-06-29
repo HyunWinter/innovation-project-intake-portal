@@ -18,6 +18,7 @@
 - Django test runner
 - Django Rest Framework `APIClient` for integration tests
 - Temporary test database
+- Vitest
 
 ## Run
 
@@ -30,7 +31,7 @@ docker compose exec backend python manage.py test proposals.tests.test_state_mac
 
 Call the component directly, no HTTP.
 
-### State machine (`proposals/tests/test_state_machine.py`)
+### State machine (`backend/proposals/tests/test_state_machine.py`)
 
 | Test | Expected |
 |---|---|
@@ -46,7 +47,7 @@ Call the component directly, no HTTP.
 | Missing field | rejected |
 | Unknown action | rejected |
 
-### Validators (`proposals/tests/test_validators.py`)
+### Validators (`backend/proposals/tests/test_validators.py`)
 
 | Test | Expected |
 |---|---|
@@ -62,7 +63,7 @@ Call the component directly, no HTTP.
 
 Full stack through `APIClient`.
 
-### API (`proposals/tests/test_api.py`)
+### API (`backend/proposals/tests/test_api.py`)
 
 | Test | Expected |
 |---|---|
@@ -77,10 +78,12 @@ Full stack through `APIClient`.
 | Resubmit | owner only |
 | Error contract | 400, 403, 404, 409 |
 
-### Authentication (`accounts/tests.py`)
+### Authentication (`backend/accounts/tests.py`)
 
 | Test | Expected |
 |---|---|
 | Login token | carries role and name |
 | Wrong password | returns 401 |
 | No token | returns 401 |
+
+## Frontend Tests (`frontend/tests`)
