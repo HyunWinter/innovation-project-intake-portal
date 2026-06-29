@@ -7,7 +7,7 @@
 - [ ] Validator tests
 
 ### 2. Integration tests
-- [ ] API endpoint and error contract tests
+- [x] API endpoint and error contract tests
 - [x] Authentication tests
 
 ### 3. Frontend tests
@@ -24,7 +24,11 @@
 
 ```bash
 cd backend
+
+# All tests
 docker compose exec backend python manage.py test
+
+# Individual Tests
 docker compose exec backend python manage.py test proposals.tests.test_state_machine
 docker compose exec backend python manage.py test proposals.tests.test_validators
 docker compose exec backend python manage.py test proposals.tests.test_api
