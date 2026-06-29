@@ -42,7 +42,11 @@ For more info, please check out the [Project Setup](docs/PROJECT_SETUP.md) docum
 cp backend/.env.example backend/.env
 ```
 
-TODO: Frontend
+The frontend reads API endpoint from `.env` as well
+
+```bash
+cp frontend/.env.example frontend/.env
+```
 
 ### Run
 
@@ -55,7 +59,15 @@ docker compose up --build
 
 By default, the API is served at http://localhost:8000.
 
-TODO: Frontend
+The frontend dev server runs with pnpm:
+
+```bash
+cd frontend
+pnpm install
+pnpm dev
+```
+
+By default, the app is served at http://localhost:5173.
 
 ### Migration, superuser, and seed
 
