@@ -142,3 +142,26 @@ class TransitionView(APIView):
 
         out = RequestDetailSerializer(obj, context={"request": request})
         return Response(out.data)
+
+
+class RequestStatsView(APIView):
+    """GET /api/requests/stats/
+    Returns aggregated counts for dashboard stat tiles
+    """
+
+    def get(self, request):
+        if request.user.role == Role.SUBMITTER:
+            raise RoleNotAllowed("stats")
+
+        qs = Request.objects.all()
+        return Response(
+            {
+                "total": qs.count(),
+                "pending": qs.filter(status=Status.PENDING).count(),
+                "approved": qs.filter(status=Status.APPROVED).count(),
+                "in_progress": qs.filter(status=Status.IN_PROGRESS).count(),
+                "mine": qs.filter(submitter=request.user).count()
+                if request.user.is_authenticated
+                else 0,
+            }
+        )
