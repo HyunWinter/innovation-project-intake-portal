@@ -3,8 +3,8 @@
 ## Tickets
 
 ### 1. Foundation
-- [ ] Router
-- [ ] Auth store (login, JWT role and name, logout)
+- [x] Router
+- [x] Auth store (login, JWT role and name, logout)
 - [ ] API store
 
 ### 2. Login and Navbar

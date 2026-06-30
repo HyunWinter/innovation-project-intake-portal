@@ -20,12 +20,15 @@ importers:
       vue:
         specifier: ^3.5.38
         version: 3.5.39
+      vue-router:
+        specifier: ^4.4.5
+        version: 4.6.4(vue@3.5.39)
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^6.0.7
         version: 6.0.7(vite@8.1.0(jiti@2.7.0))(vue@3.5.39)
       vite:
-        specifier: link:@tailwindcss\vite
+        specifier: latest
         version: 8.1.0(jiti@2.7.0)
       vite-plus:
         specifier: latest
@@ -746,6 +749,9 @@ packages:
   '@vue/compiler-ssr@3.5.39':
     resolution: {integrity: sha512-Ce7/wvwMHai74bdszfXExdazFigYnlF9zgCmEQUcM1j0fOymlouZ7XilTYNo8oUjhlnjYOZbGrcYKuqjz89Ucw==}
 
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
+
   '@vue/devtools-api@7.7.10':
     resolution: {integrity: sha512-KxtEpUOOpFz/qOGRrAwA36QF7DqIA+FXgCYit9mk9wjbaZt0sXOFz81ElOZtKA4HbWHUdwNjZHBFsFFyp5BZiA==}
 
@@ -1189,6 +1195,11 @@ packages:
         optional: true
       jsdom:
         optional: true
+
+  vue-router@4.6.4:
+    resolution: {integrity: sha512-Hz9q5sa33Yhduglwz6g9skT8OBPii+4bFn88w6J+J4MfEo4KRRpmiNG/hHHkdbRFlLBOqxN8y8gf2Fb0MTUgVg==}
+    peerDependencies:
+      vue: ^3.5.0
 
   vue@3.5.39:
     resolution: {integrity: sha512-xmZCYabFGcirU8r0fTuvl/LICc1OU620rnqepaJDL/a141ZigkG7AyaxQLdqJ02ZRYzWe6YPaDHeQx7MfknQfA==}
@@ -1716,6 +1727,8 @@ snapshots:
       '@vue/compiler-dom': 3.5.39
       '@vue/shared': 3.5.39
 
+  '@vue/devtools-api@6.6.4': {}
+
   '@vue/devtools-api@7.7.10':
     dependencies:
       '@vue/devtools-kit': 7.7.10
@@ -2132,6 +2145,11 @@ snapshots:
       '@vitest/browser-preview': 4.1.9(vite@8.1.0(jiti@2.7.0))(vitest@4.1.9)
     transitivePeerDependencies:
       - msw
+
+  vue-router@4.6.4(vue@3.5.39):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.5.39
 
   vue@3.5.39:
     dependencies:
