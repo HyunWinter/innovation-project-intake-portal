@@ -21,6 +21,7 @@ export const useAuthStore = defineStore("auth", () => {
   const isAuthenticated = computed(() => !!access.value);
   const role = computed(() => claims.value?.role || null);
   const name = computed(() => claims.value?.name || "");
+  const email = computed(() => claims.value?.email || "");
 
   function setTokens(a, r) {
     access.value = a;
@@ -47,5 +48,5 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.removeItem("refresh");
   }
 
-  return { access, refresh, claims, isAuthenticated, role, name, login, logout };
+  return { access, refresh, claims, isAuthenticated, role, name, email, login, logout };
 });

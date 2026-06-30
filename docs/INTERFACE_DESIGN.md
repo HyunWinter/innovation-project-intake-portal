@@ -8,8 +8,8 @@
 - [ ] API store
 
 ### 2. Login and Navbar
-- [ ] Login page
-- [ ] Navbar with current user and logout
+- [x] Login page
+- [x] Navbar with current user and logout
 
 ### 3. Dashboard
 - [ ] Stat tiles
