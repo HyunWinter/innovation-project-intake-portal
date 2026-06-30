@@ -15,6 +15,7 @@ export class ApiError extends Error {
   }
 }
 
+// A stateless store for handling API requests
 export const useApiStore = defineStore("api", () => {
   const auth = useAuthStore();
 
@@ -55,8 +56,16 @@ export const useApiStore = defineStore("api", () => {
 
   // Endpoints
   const listRequests = (params) => _request("/api/requests/", { params });
+  const getRequest = (id) => _request(`/api/requests/${id}/`);
+  const createRequest = (data) => _request("/api/requests/", { method: "POST", body: data });
+  // committee-decision, presentation, funding-decision, execution, etc...
+  const runTransition = (id, endpoint, body) =>
+    _request(`/api/requests/${id}/${endpoint}/`, { method: "POST", body });
 
   return {
     listRequests,
+    getRequest,
+    createRequest,
+    runTransition,
   };
 });
