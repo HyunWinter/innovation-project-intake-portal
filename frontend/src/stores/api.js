@@ -68,6 +68,7 @@ export const useApiStore = defineStore("api", () => {
       method: "POST",
       body: { action: "comment", body: text },
     });
+  const getStats = () => _request("/api/requests/stats/");
 
   return {
     listRequests,
@@ -76,5 +77,6 @@ export const useApiStore = defineStore("api", () => {
     resubmitRequest,
     runTransition,
     addComment,
+    getStats,
   };
 });

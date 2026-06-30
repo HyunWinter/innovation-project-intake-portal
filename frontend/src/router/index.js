@@ -40,6 +40,11 @@ router.beforeEach((to) => {
   if (!to.meta.public && !auth.isAuthenticated) {
     return { name: "login", query: { next: to.fullPath } };
   }
+
+  // Non-submitters should not access the New Request form
+  if (to.name === "request-new" && auth.role !== "submitter") {
+    return { name: "dashboard" };
+  }
 });
 
 export default router;
