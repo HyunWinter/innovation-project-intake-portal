@@ -15,9 +15,9 @@ function logout() {
 <template>
   <nav class="flex gap-x-6">
     <RouterLink :to="{ name: 'dashboard' }">Dashboard</RouterLink>
-    <RouterLink v-if="auth.role === 'submitter'" :to="{ name: 'request-new' }"
-      >New Request</RouterLink
-    >
+    <RouterLink v-if="auth.role === 'submitter'" :to="{ name: 'request-new' }">
+      New Request
+    </RouterLink>
     <span>{{ auth.name }} ({{ auth.role }})</span>
     <button type="button" @click="logout">Logout</button>
   </nav>
