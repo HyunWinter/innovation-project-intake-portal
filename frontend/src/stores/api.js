@@ -58,14 +58,23 @@ export const useApiStore = defineStore("api", () => {
   const listRequests = (params) => _request("/api/requests/", { params });
   const getRequest = (id) => _request(`/api/requests/${id}/`);
   const createRequest = (data) => _request("/api/requests/", { method: "POST", body: data });
+  const resubmitRequest = (id, data) =>
+    _request(`/api/requests/${id}/`, { method: "PATCH", body: data });
   // committee-decision, presentation, funding-decision, execution, etc...
   const runTransition = (id, endpoint, body) =>
     _request(`/api/requests/${id}/${endpoint}/`, { method: "POST", body });
+  const addComment = (id, text) =>
+    _request(`/api/requests/${id}/comments/`, {
+      method: "POST",
+      body: { action: "comment", body: text },
+    });
 
   return {
     listRequests,
     getRequest,
     createRequest,
+    resubmitRequest,
     runTransition,
+    addComment,
   };
 });
