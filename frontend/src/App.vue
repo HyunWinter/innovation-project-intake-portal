@@ -11,7 +11,7 @@ const route = useRoute();
 <template>
   <header
     v-if="auth.isAuthenticated && route.name !== 'login'"
-    class="sticky flex top-0 z-50 w-full shrink-0 items-center justify-center border-b border-dashed backdrop-blur-sm bg-background/60 min-h-16"
+    class="sticky flex top-0 z-50 w-full shrink-0 justify-center border-b border-dashed backdrop-blur-sm bg-background/60 h-16"
   >
     <Navbar />
   </header>

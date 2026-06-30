@@ -26,7 +26,9 @@ function logout() {
   <nav
     class="mx-auto flex h-full w-full max-w-350 items-center border-dashed min-[1400px]:border-x min-[1800px]:max-w-384"
   >
-    <div class="flex w-full items-center justify-between gap-2 px-4 max-lg:gap-4 sm:px-6 lg:px-8">
+    <div
+      class="flex h-full w-full items-center justify-between gap-2 px-4 max-lg:gap-4 sm:px-6 lg:px-8"
+    >
       <RouterLink :to="{ name: 'dashboard' }">Innovation Project Intake Portal</RouterLink>
 
       <div class="flex items-center gap-3">
