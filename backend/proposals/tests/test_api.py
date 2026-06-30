@@ -115,7 +115,8 @@ class APIIntegrationTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertIn("workflow", resp.data)
         self.assertIn("audit_events", resp.data)
-        self.assertIn("proceed_independently", resp.data["available_actions"])
+        action_names = [a["action"] for a in resp.data["available_actions"]]
+        self.assertIn("proceed_independently", action_names)
 
     def test_committee_decision_via_api(self):
         # Tests: committee decision over HTTP

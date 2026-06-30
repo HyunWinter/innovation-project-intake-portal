@@ -8,7 +8,10 @@ def available_actions(request, role):
     """Find which actions a role can run on a request
 
     Parameters: request, role
-    Returns: list of action names
+    Returns: list of dicts (for the frontend buttons and modals from data)
+        action          - the action name ("proceed_independently")
+        endpoint        - URL segment to POST to ("committee-decision")
+        required_fields - the action's payload
     """
     actions = []
     for t in TRANSITIONS.values():
@@ -28,7 +31,13 @@ def available_actions(request, role):
             and request.funding_status not in t.require_funding_status
         ):
             continue
-        actions.append(t.action)
+        actions.append(
+            {
+                "action": t.action,
+                "endpoint": t.endpoint,
+                "required_fields": list(t.required_fields),
+            }
+        )
     return actions
 
 
