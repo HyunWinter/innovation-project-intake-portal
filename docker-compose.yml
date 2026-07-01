@@ -21,11 +21,11 @@ services:
     restart: always
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --threads 10
     environment:
-      - DB_HOST=db
-      - DB_NAME=${POSTGRES_DB:-innovation_db}
-      - DB_USER=${POSTGRES_USER:-innovation_user}
-      - DB_PASS=${POSTGRES_PASSWORD:-innovation_pass}
-      - DB_PORT=5432
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=${POSTGRES_DB:-innovation_db}
+      - POSTGRES_USER=${POSTGRES_USER:-innovation_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-innovation_pass}
+      - POSTGRES_PORT=5432
       - SECRET_KEY=${SECRET_KEY:-demo_secret_key_change_me_in_production}
       - DEBUG=False
       - ALLOWED_HOSTS=${EC2_HOST:-localhost},${DOMAIN:-localhost}
