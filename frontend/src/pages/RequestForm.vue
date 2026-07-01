@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 import { useApiStore } from "@/stores/api";
@@ -12,6 +12,20 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 
 const api = useApiStore();
 const router = useRouter();
+
+const savingDraft = ref(false);
+const draftSavedMessage = ref("");
+
+onMounted(async () => {
+  try {
+    const draft = await api.getDraft();
+    if (draft && draft.data) {
+      Object.assign(form, draft.data);
+    }
+  } catch (e) {
+    if (e.status !== 404) console.error("Failed to load draft", e);
+  }
+});
 
 const currentStep = ref(1);
 const steps = [
@@ -113,7 +127,23 @@ function payload() {
         .filter(Boolean)
     : [];
   if (!data.budget) delete data.budget;
+  if (!data.start_date) delete data.start_date;
+  if (!data.end_date) delete data.end_date;
   return data;
+}
+
+async function saveDraftAction() {
+  savingDraft.value = true;
+  draftSavedMessage.value = "";
+  try {
+    await api.saveDraft({ data: form });
+    draftSavedMessage.value = "Draft saved successfully.";
+    setTimeout(() => (draftSavedMessage.value = ""), 3000);
+  } catch (e) {
+    errors.value = { detail: "Failed to save draft." };
+  } finally {
+    savingDraft.value = false;
+  }
 }
 
 async function submit() {
@@ -122,6 +152,7 @@ async function submit() {
   submitting.value = true;
   try {
     const created = await api.createRequest(payload());
+    await api.deleteDraft().catch(() => null);
     router.push({ name: "request-detail", params: { id: created.id } });
   } catch (e) {
     errors.value = e.data && typeof e.data === "object" ? e.data : { detail: e.message };
@@ -366,7 +397,7 @@ async function submit() {
           </div>
 
           <!-- Budget & ROI only show when funding is required -->
-          <div v-if="form.funding_required" class="grid sm:grid-cols-2 gap-6">
+          <div v-if="form.funding_required" class="grid sm:grid-cols-2 gap-6 items-start">
             <div class="grid gap-2">
               <Label for="budget">Budget ($) <span class="text-destructive">*</span></Label>
               <Input
@@ -414,7 +445,11 @@ async function submit() {
           </ul>
         </div>
 
-        <div class="flex justify-between gap-4 mt-4">
+        <div v-if="draftSavedMessage" class="text-sm font-medium text-primary">
+          {{ draftSavedMessage }}
+        </div>
+
+        <div class="flex justify-between gap-4">
           <Button
             type="button"
             variant="outline"
@@ -423,10 +458,20 @@ async function submit() {
             {{ currentStep > 1 ? "Previous" : "Cancel" }}
           </Button>
 
-          <Button v-if="currentStep < 4" type="button" @click="nextStep()"> Next Step </Button>
-          <Button v-else type="submit" :disabled="submitting || !!clientError">
-            {{ submitting ? "Submitting..." : "Submit Proposal" }}
-          </Button>
+          <div class="flex gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              @click="saveDraftAction"
+              :disabled="savingDraft"
+            >
+              {{ savingDraft ? "Saving..." : "Save Draft" }}
+            </Button>
+            <Button v-if="currentStep < 4" type="button" @click="nextStep()"> Next Step </Button>
+            <Button v-else type="submit" :disabled="submitting || !!clientError">
+              {{ submitting ? "Submitting..." : "Submit Proposal" }}
+            </Button>
+          </div>
         </div>
       </div>
     </form>
