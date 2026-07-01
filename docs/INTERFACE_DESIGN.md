@@ -5,28 +5,30 @@
 ### 1. Foundation
 - [x] Router
 - [x] Auth store (login, JWT role and name, logout)
-- [ ] API store
+- [x] API store
 
 ### 2. Login and Navbar
 - [x] Login page
 - [x] Navbar with current user and logout
 
 ### 3. Dashboard
-- [ ] Stat tiles
-- [ ] Filterable paginated table
-- [ ] My requests toggle
-- [ ] Overdue indicator
-- [ ] New Request button
+- [x] Stat tiles
+- [x] Filterable paginated table
+- [x] My requests toggle
+- [x] Overdue indicator
+- [x] New Request button
 
 ### 4. New Request form
-- [ ] Four sections with inline validation and conditional budget/ROI
+- [x] Four sections
+- [x] Inline validation
+- [x] Conditional budget/ROI
 
 ### 5. Review screen
-- [ ] Status header
-- [ ] Workflow progress
-- [ ] Role and state gated actions
-- [ ] Decision modal
-- [ ] Comment and audit timeline
+- [x] Category badge + status header
+- [x] Workflow progress component (current / complete / pending steps)
+- [x] Role+state-gated action buttons
+- [x] Committeedecision modal with dynamic conditional fields
+- [x] Comments/audit timeline distinguishing human comments from system events
 
 ## Requirements
 
