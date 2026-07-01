@@ -49,7 +49,16 @@ export const useApiStore = defineStore("api", () => {
     // Success check
     const data = res.status === 204 ? null : await res.json().catch(() => null);
     if (!res.ok) {
-      throw new ApiError(data?.detail || "Request failed", res.status, data);
+      let msg = data?.detail;
+      if (!msg && data && typeof data === "object") {
+        const firstKey = Object.keys(data)[0];
+        if (firstKey && Array.isArray(data[firstKey])) {
+          msg = `${data[firstKey][0]}`;
+        } else if (firstKey && typeof data[firstKey] === "string") {
+          msg = `${data[firstKey]}`;
+        }
+      }
+      throw new ApiError(msg || "Request failed", res.status, data);
     }
     return data;
   }
@@ -70,6 +79,11 @@ export const useApiStore = defineStore("api", () => {
     });
   const getStats = () => _request("/api/requests/stats/");
 
+  // Drafts (Singleton)
+  const getDraft = () => _request("/api/draft/");
+  const saveDraft = (data) => _request("/api/draft/", { method: "PUT", body: data });
+  const deleteDraft = () => _request("/api/draft/", { method: "DELETE" });
+
   return {
     listRequests,
     getRequest,
@@ -78,5 +92,8 @@ export const useApiStore = defineStore("api", () => {
     runTransition,
     addComment,
     getStats,
+    getDraft,
+    saveDraft,
+    deleteDraft,
   };
 });
