@@ -4,13 +4,21 @@ A single auditable system covering the full lifecycle of bottom-up engineering p
 
 ## Tech Stack
 
-- Vue.js, TailwindCSS
-- Vite (dev frontend)
-- Caddy (demo frontend + proxy + TLS)
-- Django, Django REST Framework
-- PostgreSQL
-- Docker, docker compose
-- AWS EC2 (demo hosting)
+**Frontend**
+- Vue 3 (Composition API)
+- Tailwind CSS & shadcn-vue
+- Vite (Build Tool)
+
+**Backend**
+- Django 5 & Django REST Framework (DRF)
+- PostgreSQL 16 (Relational Database)
+- Gunicorn & Whitenoise (WSGI & Static Files)
+
+**Infrastructure & Deployment**
+- Caddy (Reverse Proxy & Auto-TLS)
+- Docker & Docker Compose (Containerization)
+- GitHub Actions (CI/CD Pipeline)
+- AWS EC2 (Hosting)
 
 ## Documentation
 
@@ -20,6 +28,7 @@ A single auditable system covering the full lifecycle of bottom-up engineering p
 - [State Development](docs/STATE_DEVELOPMENT.md) - roles, API endpoints, state machine
 - [Interface Design](docs/INTERFACE_DESIGN.md) - frontend screens
 - [Quality Assurance](docs/QUALITY_ASSURANCE.md) - tests
+- [Deployment](docs/DEPLOYMENT.md) - provisioning, domain, CI/CD
 
 ## Setup
 
@@ -95,6 +104,7 @@ pre-commit run --all-files  # runs on all backend files
 
 ## Demo Credentials
 
+### Frontend (Portal)
 For demo, you can use following accounts for testing purposes.
 
 | Username | Password | Name | Role |
@@ -106,9 +116,48 @@ For demo, you can use following accounts for testing purposes.
 | `colin.management@example.com` | `demo1234` | Colin Management | Management |
 | `cooper.management@example.com` | `demo1234` | Cooper Management | Management |
 
+### Backend (Django Admin)
+The admin panel (`/admin/`) requires a superuser
 
-## Walkthrough
+| Username | Password | Name | Role |
+| --- | --- | --- | --- |
+| `admin@example.com` | `demo1234` | Admin | Superuser |
+
+## Happy-path Walkthrough
+
+### Category A (No Funding)
+| Actor | Action | Result |
+| --- | --- | --- |
+| Submitter | Creates request | `pending` |
+| Committee | Selects `proceed_independently` | `approved` |
+
+### Category B (Funding Required)
+| Actor | Action | Result |
+| --- | --- | --- |
+| Submitter | Creates request | `pending` |
+| Committee | Selects `request_presentation` | `under_review` |
+| Committee | Schedules presentation | `under_review` (Scheduled) |
+| Committee | Marks presentation advanced | `under_review` (Completed) |
+| Management | Selects `go` (Funding Approved)| `approved` |
 
 ## Architecture Notes
 
+- **State Machine Engine:** All transition rules are strictly enforced server side. Invalid transitions (like action after reject) reliably return HTTP 400.
+- **Audit Trails & Soft Deletes:** Every state change logs an `AuditEvent` with the actor in the same transaction. Soft deletes ensure historical integrity.
+- **SSE & Inbox Pattern:** Lightweight SSE sync notifications. The DB acts as the single source of truth while the frontend buffers locally.
+- **Containerized Infrastructure:** Production parity demo uses GitHub Actions and Docker Compose (Postgres, Django, Vite, Caddy) for simplicity and ease of deployment.
+
+## Trade-offs
+
+- **Drafts in JSONB:** Unfinished submissions use raw JSONB to allow flexible auto saves. Full validation is not done until actual submission.
+- **Accumulating Data:** Drafts and notifications accumulate over time. We may want to purge them periodically when the userbase increases.
+- **Tech Category Enum:** Hardcoded for simplicity. If categories change frequently, this should be moved to a standalone relational table like snippets.
+- **SSE vs WebSockets:** I chose SSE because notifications are strictly one way (from server to client). This prevents heavy WebSocket overhead.
+- **Single-Node Demo:** Opted for a monolithic EC2 Docker Compose deployment for demo simplicity. We could move to managed AWS cloud native setup later.
+
 ## What I'd Do With Another Week
+
+1. **Cloud Native AWS Setup:** Migrate to AWS ECS Fargate for auto scaling compute, RDS for Multi-AZ database, and ElastiCache for Redis.
+2. **Draft Purging Job:** Implement a Celery worker to automatically purge incomplete `DraftRequest` records older than 30 days.
+3. **E2E Browser Testing:** Add Playwright to automate and verify the complex multi role state transitions inside the browser.
+4. **Adopt Target Stack:** Learn and rebuild the backend using the team's preferred stack (PHP Slim Framework + Eloquent).
