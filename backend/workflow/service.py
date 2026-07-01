@@ -23,6 +23,9 @@ from .exceptions import (
 )
 from .transitions import get_transition
 
+# Realtime SSE signal (imported here to avoid circular imports)
+from realtime.signals import post_transition
+
 
 # Payload keys from a request
 _REQUEST_FIELDS = (
@@ -61,6 +64,14 @@ def apply_transition(request, action, actor, payload=None):
     # A comment should not change state
     if action == "comment":
         Comment.objects.create(request=request, author=actor, body=payload["body"])
+        post_transition.send(
+            sender=request.__class__,
+            request_obj=request,
+            action="comment",
+            from_status=request.status,
+            to_status=request.status,
+            actor=actor,
+        )
         return request
 
     from_status = request.status
@@ -78,6 +89,16 @@ def apply_transition(request, action, actor, payload=None):
         from_status=from_status,
         to_status=request.status,
         payload=_audit_payload(transition, payload),
+    )
+
+    # Send notification
+    post_transition.send(
+        sender=request.__class__,
+        request_obj=request,
+        action=action,
+        from_status=from_status,
+        to_status=request.status,
+        actor=actor,
     )
     return request
 
