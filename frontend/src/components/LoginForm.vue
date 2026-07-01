@@ -46,7 +46,13 @@ async function submit() {
             </p>
             <Field>
               <FieldLabel for="email"> Email </FieldLabel>
-              <Input id="email" v-model="email" type="email" placeholder="m@example.com" required />
+              <Input
+                id="email"
+                v-model="email"
+                type="email"
+                placeholder="email@address.com"
+                required
+              />
             </Field>
             <Field>
               <FieldLabel for="password"> Password </FieldLabel>
