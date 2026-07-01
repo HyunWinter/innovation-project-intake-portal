@@ -5,18 +5,18 @@
     root * /srv
     encode gzip
     
-    # Forward /api/* requests to Django backend
-    handle /api/* {
+    # Forward /api requests to Django backend
+    handle /api* {
         reverse_proxy backend:8000
     }
     
-    # Forward /admin/* requests to Django backend (for admin panel)
-    handle /admin/* {
+    # Forward /admin requests to Django backend (for admin panel)
+    handle /admin* {
         reverse_proxy backend:8000
     }
     
     # Forward Django static files
-    handle /static/* {
+    handle /static* {
         reverse_proxy backend:8000
     }
 
