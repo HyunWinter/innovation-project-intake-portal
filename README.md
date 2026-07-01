@@ -2,6 +2,10 @@
 
 A single auditable system covering the full lifecycle of bottom-up engineering proposals: submission, committee review, presentation, funding decision, and execution tracking.
 
+## Screen Recording
+
+[Watch Demo on Google Drive](https://drive.google.com/file/d/1dzCbBIX42EJBO5HvQV-Ze5_IW04O3F-L/view?usp=sharing)
+
 ## Tech Stack
 
 **Frontend**
