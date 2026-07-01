@@ -35,3 +35,6 @@ jobs:
             
             # Collect static files for Django admin panel
             docker compose exec -T backend python manage.py collectstatic --noinput
+            
+            # Restart backend so Whitenoise picks up the new static files
+            docker compose restart backend
