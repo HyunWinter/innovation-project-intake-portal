@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 
+import NotificationBell from "@/components/NotificationBell.vue";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,8 +32,8 @@ function logout() {
     >
       <RouterLink :to="{ name: 'dashboard' }">Innovation Project Intake Portal</RouterLink>
 
-      <div class="flex items-center gap-3">
-        <span class="text-sm font-medium">{{ auth.name }}</span>
+      <div class="flex items-center gap-2">
+        <NotificationBell />
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
             <Button variant="ghost" class="relative h-8 w-8 rounded-full">
@@ -45,7 +46,7 @@ function logout() {
             <DropdownMenuLabel class="font-normal">
               <div class="flex flex-col space-y-1">
                 <p class="text-sm font-medium leading-none capitalize text-popover-foreground">
-                  {{ auth.role }}
+                  {{ auth.name }}
                 </p>
                 <p class="text-xs leading-none text-muted-foreground">{{ auth.email }}</p>
               </div>

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # Local
     "accounts",
     "proposals",
+    "realtime",
 ]
 
 # Custom user model (email-based auth). Must be set before the first migrate.

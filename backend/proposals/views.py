@@ -16,6 +16,8 @@ from workflow.exceptions import IllegalTransition, RoleNotAllowed, UnknownAction
 from workflow.service import apply_transition
 from workflow.transitions import get_transition
 
+from realtime.signals import post_transition
+
 from .enums import Status
 from .models import AuditEvent, Request, DraftRequest
 from .serializers import (
@@ -76,6 +78,15 @@ class RequestListCreateView(generics.ListCreateAPIView):
             )
 
         out = RequestDetailSerializer(obj, context=self.get_serializer_context())
+
+        post_transition.send(
+            sender=obj.__class__,
+            request_obj=obj,
+            action="create",
+            from_status=None,
+            to_status=obj.status,
+            actor=request.user,
+        )
         return Response(out.data, status=status.HTTP_201_CREATED)
 
 
@@ -118,6 +129,15 @@ class RequestDetailView(generics.RetrieveUpdateAPIView):
             )
 
         out = RequestDetailSerializer(obj, context=self.get_serializer_context())
+
+        post_transition.send(
+            sender=obj.__class__,
+            request_obj=obj,
+            action="resubmit",
+            from_status=obj.status,
+            to_status=obj.status,
+            actor=request.user,
+        )
         return Response(out.data)
 
 

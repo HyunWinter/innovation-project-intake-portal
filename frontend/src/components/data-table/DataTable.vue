@@ -91,7 +91,7 @@ const table = useVueTable({
 </script>
 
 <template>
-  <div class="container flex flex-1 scroll-mt-20 flex-col theme-container space-y-4">
+  <div class="flex flex-1 scroll-mt-20 flex-col theme-container space-y-4">
     <DataTableToolbar
       :search="search"
       :status="status"

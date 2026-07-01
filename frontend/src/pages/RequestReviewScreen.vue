@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted, onUnmounted, watch } from "vue";
 import { useApiStore } from "@/stores/api";
 import { TECH_CATEGORY_LABELS } from "@/lib/constants";
 import Container from "@/components/Container.vue";
@@ -37,7 +37,16 @@ async function load() {
     loadError.value = e.message;
   }
 }
-onMounted(load);
+onMounted(() => {
+  load();
+  window.addEventListener("refresh-request-data", load);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("refresh-request-data", load);
+});
+
+watch(() => props.id, load);
 
 // Comments and events
 const timeline = computed(() => {
@@ -61,6 +70,17 @@ const timeline = computed(() => {
 });
 
 function label(action) {
+  const customLabels = {
+    go: "Approve Funding",
+    no_go: "Reject Funding",
+    start: "Begin Execution",
+    advanced: "Presentation Successful",
+    not_advanced: "Presentation Failed",
+    combine_existing: "Combine with Existing Project",
+    enhance_search: "Enhance Prior-Art Search",
+  };
+  if (customLabels[action]) return customLabels[action];
+
   return action.replaceAll("_", " ");
 }
 
