@@ -95,6 +95,18 @@ pre-commit run --all-files  # runs on all backend files
 
 ## Demo Credentials
 
+For demo, you can use following accounts for testing purposes.
+
+| Username | Password | Name | Role |
+| --- | --- | --- | --- |
+| `andrew.submitter@example.com` | `demo1234` | Andrew Submitter | Submitter |
+| `aleece.submitter2@example.com` | `demo1234` | Aleece Submitter | Submitter |
+| `ben.committee@example.com` | `demo1234` | Ben Committee | Committee |
+| `bethany.committee2@example.com` | `demo1234` | Bethany Committee | Committee |
+| `colin.management@example.com` | `demo1234` | Colin Management | Management |
+| `cooper.management@example.com` | `demo1234` | Cooper Management | Management |
+
+
 ## Walkthrough
 
 ## Architecture Notes

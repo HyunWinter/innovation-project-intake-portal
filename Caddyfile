@@ -1,0 +1,28 @@
+# Use environment variable for domain
+# fallback to port 80 for IP testing
+{$DOMAIN::80} {
+    # Serve static files from frontend build
+    root * /srv
+    encode gzip
+    
+    # Forward /api/* requests to Django backend
+    handle /api/* {
+        reverse_proxy backend:8000
+    }
+    
+    # Forward /admin/* requests to Django backend (for admin panel)
+    handle /admin/* {
+        reverse_proxy backend:8000
+    }
+    
+    # Forward Django static files
+    handle /static/* {
+        reverse_proxy backend:8000
+    }
+
+    # SPA routing (must be last)
+    handle {
+        try_files {path} /index.html
+        file_server
+    }
+}

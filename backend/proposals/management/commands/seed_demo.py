@@ -18,9 +18,12 @@ User = get_user_model()
 
 DEMO_PASSWORD = "demo1234"
 DEMO_USERS = [
-    ("submitter@example.com", "Andrew Submitter", Role.SUBMITTER),
-    ("committee@example.com", "Ben Committee", Role.COMMITTEE),
-    ("management@example.com", "Colin Management", Role.MANAGEMENT),
+    ("andrew.submitter@example.com", "Andrew Submitter", Role.SUBMITTER),
+    ("aleece.submitter2@example.com", "Aleece Submitter", Role.SUBMITTER),
+    ("ben.committee@example.com", "Ben Committee", Role.COMMITTEE),
+    ("bethany.committee2@example.com", "Bethany Committee", Role.COMMITTEE),
+    ("colin.management@example.com", "Colin Management", Role.MANAGEMENT),
+    ("cooper.management@example.com", "Cooper Management", Role.MANAGEMENT),
 ]
 
 
