@@ -17,11 +17,12 @@ from workflow.service import apply_transition
 from workflow.transitions import get_transition
 
 from .enums import Status
-from .models import AuditEvent, Request
+from .models import AuditEvent, Request, DraftRequest
 from .serializers import (
     RequestCreateSerializer,
     RequestDetailSerializer,
     RequestListSerializer,
+    DraftRequestSerializer,
 )
 from .validators import validate_transition_payload
 
@@ -142,3 +143,55 @@ class TransitionView(APIView):
 
         out = RequestDetailSerializer(obj, context={"request": request})
         return Response(out.data)
+
+
+class RequestStatsView(APIView):
+    """GET /api/requests/stats/
+    Returns aggregated counts for dashboard stat tiles
+    """
+
+    def get(self, request):
+        if request.user.role == Role.SUBMITTER:
+            raise RoleNotAllowed("stats")
+
+        qs = Request.objects.all()
+        return Response(
+            {
+                "total": qs.count(),
+                "pending": qs.filter(status=Status.PENDING).count(),
+                "approved": qs.filter(status=Status.APPROVED).count(),
+                "in_progress": qs.filter(status=Status.IN_PROGRESS).count(),
+                "mine": qs.filter(submitter=request.user).count()
+                if request.user.is_authenticated
+                else 0,
+            }
+        )
+
+
+class DraftRequestSingletonView(APIView):
+    """GET /api/draft/
+    PUT /api/draft/
+    DELETE /api/draft/"""
+
+    def get(self, request):
+        draft = DraftRequest.objects.filter(author=request.user).first()
+        if not draft:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = DraftRequestSerializer(draft)
+        return Response(serializer.data)
+
+    def put(self, request):
+        draft = DraftRequest.objects.filter(author=request.user).first()
+        if draft:
+            serializer = DraftRequestSerializer(draft, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        else:
+            serializer = DraftRequestSerializer(data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            serializer.save(author=request.user)
+        return Response(serializer.data)
+
+    def delete(self, request):
+        DraftRequest.objects.filter(author=request.user).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

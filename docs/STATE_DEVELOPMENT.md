@@ -24,7 +24,7 @@
 - [x] Enforce role permissions
 
 ### 7. Error contract
-- [ ] Implement error responses (400, 403, 404, 409)
+- [x] Implement error responses (400, 403, 404, 409)
 
 ## Permissions
 

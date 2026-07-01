@@ -2,9 +2,35 @@
 
 ## Tickets
 
-## Pages
+### 1. Foundation
+- [x] Router
+- [x] Auth store (login, JWT role and name, logout)
+- [x] API store
 
-### Navbar
+### 2. Login and Navbar
+- [x] Login page
+- [x] Navbar with current user and logout
+
+### 3. Dashboard
+- [x] Stat tiles
+- [x] Filterable paginated table
+- [x] My requests toggle
+- [x] Overdue indicator
+- [x] New Request button
+
+### 4. New Request form
+- [x] Four sections
+- [x] Inline validation
+- [x] Conditional budget/ROI
+
+### 5. Review screen
+- [x] Category badge + status header
+- [x] Workflow progress component (current / complete / pending steps)
+- [x] Role+state-gated action buttons
+- [x] Committeedecision modal with dynamic conditional fields
+- [x] Comments/audit timeline distinguishing human comments from system events
+
+## Requirements
 
 ### Login Page
 - Email

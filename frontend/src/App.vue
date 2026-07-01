@@ -1,11 +1,19 @@
 <script setup>
-import { useCounterStore } from '@/stores/counter'
-const counter = useCounterStore();
-counter.startTimer()
+import { useRoute } from "vue-router";
+
+import Navbar from "@/components/Navbar.vue";
+import { useAuthStore } from "@/stores/auth";
+
+const auth = useAuthStore();
+const route = useRoute();
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">
-    Hello World {{ counter.count }} Times!
-  </h1>
+  <header
+    v-if="auth.isAuthenticated && route.name !== 'login'"
+    class="sticky flex top-0 z-50 w-full shrink-0 justify-center border-b border-dashed backdrop-blur-sm bg-background/60 h-16"
+  >
+    <Navbar />
+  </header>
+  <router-view />
 </template>

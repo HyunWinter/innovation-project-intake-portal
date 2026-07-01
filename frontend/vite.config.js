@@ -1,7 +1,7 @@
 import { defineConfig, lazyPlugins } from "vite-plus";
 import vue from "@vitejs/plugin-vue";
-import path from 'path';
-import tailwindcss from '@tailwindcss/vite';
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,13 +11,10 @@ export default defineConfig({
     rules: { "vite-plus/prefer-vite-plus-imports": "error" },
     options: { typeAware: true, typeCheck: true },
   },
-  plugins: [
-    tailwindcss(),
-    lazyPlugins(() => [vue()]),
-  ],
+  plugins: lazyPlugins(() => [vue(), tailwindcss()]),
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-    }
-  }
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });

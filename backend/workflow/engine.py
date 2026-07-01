@@ -1,34 +1,50 @@
 """Read only helpers over the transition registry"""
 
+from accounts.models import Role
 from proposals.enums import Category, Status
 from .transitions import TRANSITIONS
 
 
-def available_actions(request, role):
-    """Find which actions a role can run on a request
+def available_actions(request_obj, user):
+    """Find which actions a user can run on a request
 
-    Parameters: request, role
-    Returns: list of action names
+    Parameters: request_obj, user
+    Returns: list of dicts (for the frontend buttons and modals from data)
+        action          - the action name ("proceed_independently")
+        endpoint        - URL segment to POST to ("committee-decision")
+        required_fields - the action's payload
     """
+    role = getattr(user, "role", None)
     actions = []
     for t in TRANSITIONS.values():
         if role not in t.roles:
             continue
-        if request.status not in t.from_status:
+
+        # Submitter can only perform actions on their own requests
+        if role == Role.SUBMITTER and request_obj.submitter != user:
             continue
-        if t.category is not None and request.category != t.category:
+
+        if request_obj.status not in t.from_status:
+            continue
+        if t.category is not None and request_obj.category != t.category:
             continue
         if (
             t.require_presentation_status is not None
-            and request.presentation_status not in t.require_presentation_status
+            and request_obj.presentation_status not in t.require_presentation_status
         ):
             continue
         if (
             t.require_funding_status is not None
-            and request.funding_status not in t.require_funding_status
+            and request_obj.funding_status not in t.require_funding_status
         ):
             continue
-        actions.append(t.action)
+        actions.append(
+            {
+                "action": t.action,
+                "endpoint": t.endpoint,
+                "required_fields": list(t.required_fields),
+            }
+        )
     return actions
 
 

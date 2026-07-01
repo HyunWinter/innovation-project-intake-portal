@@ -26,6 +26,8 @@
 
 ## Environment Variables
 
+Backend:
+
 ```
 POSTGRES_DB
 POSTGRES_USER
@@ -34,6 +36,12 @@ POSTGRES_HOST
 POSTGRES_PORT
 SECRET_KEY
 DEBUG
+```
+
+Frontend:
+
+```
+VITE_API_BASE
 ```
 
 ## Run
