@@ -12,6 +12,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import transaction
 from django.utils import timezone
 
+from accounts.models import Role
 from proposals.models import AuditEvent, Comment
 
 from .exceptions import (
@@ -47,6 +48,8 @@ def apply_transition(request, action, actor, payload=None):
     if transition is None:
         raise UnknownAction(action)
     if actor.role not in transition.roles:
+        raise RoleNotAllowed(action)
+    if actor.role == Role.SUBMITTER and request.submitter != actor:
         raise RoleNotAllowed(action)
     _check_state(request, transition)
 

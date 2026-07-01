@@ -8,7 +8,7 @@ from django.utils import timezone
 from workflow.engine import available_actions, workflow_status
 
 from .enums import Category, FundingStatus, Status
-from .models import AuditEvent, Comment, Request
+from .models import AuditEvent, Comment, Request, DraftRequest
 
 NON_TERMINAL = (
     Status.PENDING,
@@ -100,7 +100,7 @@ class RequestDetailSerializer(serializers.ModelSerializer):
 
     def get_available_actions(self, obj):
         user = self.context["request"].user
-        return available_actions(obj, getattr(user, "role", None))
+        return available_actions(obj, user)
 
     def get_workflow(self, obj):
         return workflow_status(obj)
@@ -184,3 +184,14 @@ class RequestCreateSerializer(serializers.ModelSerializer):
         # The state machine keeps it pending
         validated = self._derive(validated, instance)
         return super().update(instance, validated)
+
+
+class DraftRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DraftRequest
+        fields = ["id", "author", "data", "created_at", "updated_at"]
+        read_only_fields = ["id", "author", "created_at", "updated_at"]
+
+    def create(self, validated_data):
+        validated_data["author"] = self.context["request"].user
+        return super().create(validated_data)
