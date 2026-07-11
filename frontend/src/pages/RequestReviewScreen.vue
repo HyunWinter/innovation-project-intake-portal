@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import MergedInto from "@/components/MergedInto.vue";
 import {
   Card,
   CardHeader,
@@ -37,6 +38,7 @@ async function load() {
     loadError.value = e.message;
   }
 }
+
 onMounted(() => {
   load();
   window.addEventListener("refresh-request-data", load);
@@ -540,6 +542,12 @@ function submitModal() {
               class="flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               placeholder="Enter details..."
             ></textarea>
+
+            <MergedInto
+              v-else-if="f === 'merged_into'"
+              v-model="fieldValues[f]"
+              :exclude-id="request.id"
+            />
 
             <Input v-else :id="f" v-model="fieldValues[f]" :type="fieldType(f)" />
           </div>

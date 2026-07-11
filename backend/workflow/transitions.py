@@ -126,7 +126,7 @@ _TRANSITIONS = [
         from_status=(Status.PENDING, Status.UNDER_REVIEW),
         category=Category.B,
         to_status=Status.MERGED,
-        required_fields=("decision_reasoning",),
+        required_fields=("decision_reasoning", "merged_into"),
         set_committee_decision=CommitteeDecision.COMBINE_EXISTING,
         terminal=True,
     ),

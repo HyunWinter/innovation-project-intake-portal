@@ -61,6 +61,10 @@ def apply_transition(request, action, actor, payload=None):
     if missing:
         raise MissingFields(missing)
 
+    # A request cannot be merged into itself
+    if payload.get("merged_into") and str(payload["merged_into"]) == str(request.id):
+        raise IllegalTransition("A request cannot be merged into itself")
+
     # A comment should not change state
     if action == "comment":
         Comment.objects.create(request=request, author=actor, body=payload["body"])
@@ -159,6 +163,10 @@ def _apply_effects(request, t, actor, payload):
         request.presentation_status = t.set_presentation_status
     if t.set_funding_status is not None:
         request.funding_status = t.set_funding_status
+
+    # merged_into is a FK, so assign it by id from the payload (target checked in the view)
+    if payload.get("merged_into"):
+        request.merged_into_id = payload["merged_into"]
 
     for field in _REQUEST_FIELDS:
         if field in payload:
