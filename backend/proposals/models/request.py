@@ -100,6 +100,14 @@ class Request(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)  # should soft delete
 
+    merged_into = models.ForeignKey(
+        "proposals.Request",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="merged_requests",
+    )
+
     objects = RequestManager()  # hides soft deleted rows
     all_objects = models.Manager()  # includes soft deleted rows
 

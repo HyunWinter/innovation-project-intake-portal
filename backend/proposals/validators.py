@@ -22,3 +22,14 @@ def validate_transition_payload(action, payload):
         raw = payload.get("expected_resume_date")
         if raw not in (None, ""):
             serializers.DateField().to_internal_value(raw)  # raises 400 if malformed
+    # For combine_existing the merge target must be a real request
+    elif action == "combine_existing":
+        target_id = payload.get("merged_into")
+        if target_id not in (None, ""):
+            target_id = serializers.UUIDField().to_internal_value(target_id)  # 400 if malformed
+            from proposals.models import Request
+
+            if not Request.objects.filter(pk=target_id).exists():
+                raise serializers.ValidationError(
+                    {"merged_into": "Selected project does not exist."}
+                )
